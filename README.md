@@ -5,3 +5,7 @@ Detecting virus-host interactions is essential for us to understand interaction 
 
 # PreTLM-MIL
 
+
+![flowchart](https://user-images.githubusercontent.com/6703505/191104200-99f5d421-4a96-4201-ae68-2bee49b060d2.png)
+>>>>>>> a32ec784cc73899b829d5d9006271edc5bfcdc50
+
