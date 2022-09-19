@@ -5,10 +5,6 @@ import torch
 import torch.utils.data as data_utils
 import torch.optim as optim
 from torch.autograd import Variable
-
-from dataloader import MnistBags
-# from dataload2 import Dataload
-from cv import Dataload
 from model_esm1b import Attention, GatedAttention
 from sklearn.metrics import roc_curve, auc
 from sklearn import metrics

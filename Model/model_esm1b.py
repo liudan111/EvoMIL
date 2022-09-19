@@ -2,10 +2,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+'cite from '
 class Attention(nn.Module):
     def __init__(self):
         super(Attention, self).__init__()
-        self.L = 800 # in the past, it always 800
+        self.L = 800 # 
         self.D = 128
         self.K = 1
         # self.feature_extractor_part1 = nn.Sequential(

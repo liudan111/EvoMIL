@@ -1,37 +1,20 @@
-"""Pytorch dataset object that loads  dataset ."""
-import random
+"""Pytorch dataset generate datasets by 5-fold cross validation."""
 from collections import Counter
 import numpy as np
 import pandas as pd
-import csv
-import esm
-import scipy
-import numpy
-import os
-import pickle
-# generate random integer values
 from random import seed
 from random import randint
 from random import sample      
 from sklearn.model_selection import GridSearchCV, train_test_split
-
 import mil_pytorch.mil as mil
 from torch.utils.data import DataLoader, SubsetRandomSampler
 from sklearn import model_selection
-from sklearn.metrics import roc_curve, auc
 import matplotlib.pyplot as plt
-###
-import mil_pytorch.mil as mil
-from mil_pytorch.utils import eval_utils, data_utils, train_utils, create_bags_simple
-from sklearn.model_selection import RepeatedStratifiedKFold
 from sklearn.model_selection import StratifiedKFold
-import numpy
 import torch
 import time
 import os.path
-import pandas
 from sklearn.model_selection import KFold
-
 class Dataload:
     def __init__(self, fileindex=0):
         self.fileindex = fileindex
@@ -58,9 +41,6 @@ class Dataload:
         
             test_sampler = SubsetRandomSampler(test_indices)
             test_loader = DataLoader(dataset, sampler = test_sampler, batch_size = batch_size, collate_fn=mil.collate) # test_loader had been fixed
-    
-            pd.DataFrame(test_indices).to_csv(output_path+'test_indices_'+str(self.fileindex+1)+'.csv',header=None,index=None)
-            torch.save(test_loader, output_path+'test_loader_'+str(self.fileindex+1))
 
             skf=StratifiedKFold(n_splits=5, random_state=8080, shuffle=True)
             labels_list=labels[train_indices]
@@ -81,8 +61,7 @@ class Dataload:
                   r=r+1
                   train_dl_list.append(train_indices_real)
                   val_dl_list.append(val_indices_real)
-            pd.DataFrame(train_dl_list).to_csv(output_path+'train_dl_list_'+str(self.fileindex+1)+'.csv',header=None,index=None)
-            pd.DataFrame(val_dl_list).to_csv(output_path+'val_dl_list_'+str(self.fileindex+1)+'.csv',header=None,index=None)
+
 if __name__ == "__main__":
     for i in range(21):
         load=Dataload(i)

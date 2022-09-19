@@ -11,8 +11,26 @@ The flow chart of PreTLM-MIL is shown in Fig 1. First, protein sequences of viru
 ![flowchart](https://user-images.githubusercontent.com/6703505/191104200-99f5d421-4a96-4201-ae68-2bee49b060d2.png)
 
 
-### There are codes for training and testing on dataset.
+### Requirements:
+Python3
+PyTorch ==1.7.1 (with CUDA)
+torchvision == 0.8.2
+sklearn==0.23.2
+numpy==1.21.5
+
+### Data
+
+### codes for training and testing on dataset.
 Model/cv_save.py
 Model/model_esm1b.py
 Model/test.py
 Model/train.py
+### codes for plotting.
+
+### trained models
+
+Trained model_euk/ 
+
+
+
+Trained model_pro/ 
