@@ -77,8 +77,12 @@ This folder includes trained models for 21 prokaryotic hosts
 ### Trained models on eukaryotic hosts
 1. Trained model_euk/best_model_acc 
 
+    Here are trained models with the best Accuracy of 12 eukaryotic hosts.
 
 2. Trained model_euk/best_model_auc 
 
+    Here are trained models with the best AUC of 12 eukaryotic hosts, which 
 
 3. Trained model_euk/final_model
+
+    Here are trained final model of 12 eukaryotic hosts, which are trained on all datasets we collect.
