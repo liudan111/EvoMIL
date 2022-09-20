@@ -30,11 +30,11 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
 2. final_specise_sort_30_pro.csv 
 
-    It is the table 
+    It is the table of prokaryotic hosts: hostname and number of viruses related to the host.
 
 3. final_specise_sort_45_euk.csv
 
-    It is the table 
+    It is the table of eukaryotic hosts: hostname and number of viruses related to the host.
 
 4.  virushostdb_update.csv
 
