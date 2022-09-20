@@ -34,40 +34,44 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
 3. final_specise_sort_45_euk.csv
 
- It is the table 
+    It is the table 
 
 4.  virushostdb_update.csv
 
- This table includes all links between viruses and hosts from VHDB datasets.
+    This table includes all links between viruses and hosts from VHDB datasets.
+    
 ### Codes for training and testing on dataset (Binary classification).
 1. Model/model_esm1b.py
 
-It is the attention-based MIL model for binary classification.
+    It is the attention-based MIL model for binary classification.
 
 2. Model/train.py
 
-Train the model by 5-fold cross validation.
+    Train the model by 5-fold cross validation.
 
 3. Model/test.py
 
-Test 5 trained models on the test data, then we can choose the model by the best AUC or Accuracy.
+    Test 5 trained models on the test data, then we can choose the model by the best AUC or Accuracy.
+    
 ### Codes for training and testing on dataset (Multi-class classification).
 1. Model_mc/attention_mc.py
 
-It is the attention-based MIL model for multi-class classification.
+    It is the attention-based MIL model for multi-class classification.
 
 2. Model/train_mc.py
 
-Train the model by 5-fold cross validation.
+    Train the model by 5-fold cross validation.
 
 3. Model/test_mc.py
 
-Test 5 trained models on the test data, then we can choose the model by the best AUC or Accuracy.
+    Test 5 trained models on the test data, then we can choose the model by the best AUC or Accuracy.
+
 
 ### Trained models on prokaryotic hosts
+
 1. Trained model_pro/best_model_acc 
 
-This folder includes trained models for 21 prokaryotic hosts
+    This folder includes trained models for 21 prokaryotic hosts
 
 2. Trained model_pro/best_model_auc 
 
@@ -75,6 +79,7 @@ This folder includes trained models for 21 prokaryotic hosts
 3. Trained model_pro/final_model
 
 ### Trained models on eukaryotic hosts
+
 1. Trained model_euk/best_model_acc 
 
 
