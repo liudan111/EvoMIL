@@ -32,16 +32,6 @@ parser.add_argument('--lr', type=float, default=0.0005, metavar='LR',
                     help='learning rate (default: 0.0005)')
 parser.add_argument('--reg', type=float, default=10e-5, metavar='R',
                     help='weight decay')
-parser.add_argument('--target_number', type=int, default=9, metavar='T',
-                    help='bags have a positive labels if they contain at least one 9')
-parser.add_argument('--mean_bag_length', type=int, default=10, metavar='ML',
-                    help='average bag length')
-parser.add_argument('--var_bag_length', type=int, default=2, metavar='VL',
-                    help='variance of bag length')
-parser.add_argument('--num_bags_train', type=int, default=200, metavar='NTrain',
-                    help='number of bags in training set')
-parser.add_argument('--num_bags_test', type=int, default=50, metavar='NTest',
-                    help='number of bags in test set')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
                     help='random seed (default: 1)')
 parser.add_argument('--no-cuda', action='store_true', default=False,
@@ -70,6 +60,7 @@ if args.cuda:
 optimizer = optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999), weight_decay=args.reg)
 criterion = torch.nn.CrossEntropyLoss(reduction="mean")
 
+''
 def topks_correct(preds, labels, ks):
     """
     Given the predictions, labels, and a list of top-k values, compute the
@@ -115,31 +106,28 @@ def topk_accuracies(preds, labels, ks):
     """
     num_topks_correct = topks_correct(preds, labels, ks)
     return [(x / preds.size(0)) * 100.0 for x in num_topks_correct]
-
+''
 
         
 def results2CSV(results,csvfile):
 
     if os.path.isfile(csvfile):
         with open(csvfile, 'a') as csvfile:
-            fieldnames = ['AUC','Loss','Accuracy','eer_fpr','eer_fnr','f1','spec','sens','prec']
+            fieldnames = ['AUC','Loss','Accuracy','f1','spec','sens','prec']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writerow(results) 
     else:
         with open(csvfile, 'a') as csvfile:
             print ( 'new file',csvfile)
-            fieldnames = ['AUC','Loss','Accuracy','eer_fpr','eer_fnr','f1','spec','sens','prec']
+            fieldnames = ['AUC','Loss','Accuracy','f1','spec','sens','prec']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerow(results) 
 
-def eer(pred, labels):
+def aucscore(pred, labels):
     fpr, tpr, threshold = metrics.roc_curve(labels, pred, pos_label=1)
     auc_score = auc(fpr, tpr)
-    fnr = 1 - tpr
-    EER_fpr = fpr[np.nanargmin(np.absolute((fnr - fpr)))]
-    EER_fnr = fnr[np.nanargmin(np.absolute((fnr - fpr)))]
-    return EER_fpr, EER_fnr,auc_score
+    return auc_score
 
 def get_confusion(pred, target):
     FN = 0
@@ -157,8 +145,8 @@ def get_confusion(pred, target):
             TN += 1
     spec = round(TN / (TN + FP), 6) if (TN + TP) else 'NA'
     sens = round(TP / (TP + FN), 6) if (TP + FN) else 'NA'
-    acc  = round((TP + TN) / (len(pred)), 6)
-    f1= f1_score(pred,target,average='macro')
+    # acc  = round((TP + TN) / (len(pred)), 6)
+    # f1= f1_score(pred,target,average='macro')
     # f1_val=2*(prec*sens)/(prec+sens)
     # print(f1)
     # print(f1_val)
@@ -206,7 +194,6 @@ if __name__ == "__main__":
                             gts.append(gt)
                             y_hat.append(pred_label)
                             probs.append(prob_preds[0].cpu().detach().numpy())                            
-
                             test_loss += loss
                             test_acc += acc
                             # test_error += error
@@ -229,7 +216,6 @@ if __name__ == "__main__":
                 print(probs)
                 # kappa_score = cohen_kappa_score(gts, y_hat)
                 # cm = confusion_matrix(gts, y_hat)
-
                 spec,sens = get_confusion(y_hat, gts)
                 #calculating precision and reall
                 precision = precision_score(gts, y_hat, average='macro')
@@ -239,8 +225,6 @@ if __name__ == "__main__":
             
                 csvfile=output+'virus_testset_AUC_5fold_cross_validation.csv'
                 results= {'AUC':str(round(np.array(auc_score).mean(),4)),
-                'Loss':round(np.array(test_loss).mean(),4),'Accuracy':round(np.array(test_acc).mean(),4),
-                # 'eer_fpr':round(np.array(eer_fpr).mean(),4),'eer_fnr':round(np.array(eer_fnr).mean(),4),
-                'f1':round(np.array(f1).mean(),4),'spec':round(np.array(spec).mean(),4), 
+                'Loss':round(np.array(test_loss).mean(),4),'Accuracy':round(np.array(test_acc).mean(),4),'f1':round(np.array(f1).mean(),4),'spec':round(np.array(spec).mean(),4), 
                 'sens':round(np.array(sens).mean(),4),'prec':round(np.array(precision).mean(),4)} 
                 results2CSV(results,csvfile)

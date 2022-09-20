@@ -24,16 +24,6 @@ parser.add_argument('--lr', type=float, default=0.0005, metavar='LR',
                     help='learning rate (default: 0.0005)')
 parser.add_argument('--reg', type=float, default=10e-5, metavar='R',
                     help='weight decay')
-parser.add_argument('--target_number', type=int, default=9, metavar='T',
-                    help='bags have a positive labels if they contain at least one 9')
-parser.add_argument('--mean_bag_length', type=int, default=10, metavar='ML',
-                    help='average bag length')
-parser.add_argument('--var_bag_length', type=int, default=2, metavar='VL',
-                    help='variance of bag length')
-parser.add_argument('--num_bags_train', type=int, default=200, metavar='NTrain',
-                    help='number of bags in training set')
-parser.add_argument('--num_bags_test', type=int, default=50, metavar='NTest',
-                    help='number of bags in test set')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
                     help='random seed (default: 1)')
 parser.add_argument('--no-cuda', action='store_true', default=False,
