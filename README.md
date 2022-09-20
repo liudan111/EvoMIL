@@ -17,15 +17,18 @@ First, protein sequences of viruses and virus-host interactions can be collected
     sklearn==0.23.2
     numpy==1.21.5
 
+### Processing steps of PreTLM-MIL
+1.  From VHDB
+2. Pre-trained transformer model ESM-1b to calculate emendings of protein viruses 
 ### Data
-1. example/5fold_cv <br />
-    This is a cross validation dataset <br />  
+1. example/5fold_cv 
+    This is a cross validation dataset 
 2. final_specise_sort_30_pro.csv
  
 3. final_specise_sort_45_euk.csv
 
 4.  virushostdb_update.csv
-### Codes for training and testing on dataset (binary classification).
+### Codes for training and testing on dataset (Binary classification).
 1. Model/model_esm1b.py
 
 2. Model/test.py
@@ -39,13 +42,13 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
 3. Model_mc/train.py
 
-### Trained models on 
+### Trained models on prokaryotic hosts
 1. Trained model_pro/best_model_acc 
 
 2. Trained model_pro/best_model_auc 
 
 3. Trained model_pro/final_model
-### Trained models on 
+### Trained models on eukaryotic hosts
 1. Trained model_euk/best_model_acc 
 
 2. Trained model_euk/best_model_auc 
