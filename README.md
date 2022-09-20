@@ -53,6 +53,7 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
     Test 5 trained models on the test data, then we can choose the model by the best AUC or Accuracy.
     
+4. mil_pytorch are mil package from 
 ### Codes for training and testing on dataset (Multi-class classification).
 1. Model_mc/attention_mc.py
 

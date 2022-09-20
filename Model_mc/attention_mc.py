@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+""" Copyright © 2018 ilse.maximilian@gmail.com.
+    We make some chanegs on this Attention model to suitble on protein embeddings and multi-class classification.
+"""
 class Attention(nn.Module):
     def __init__(self):
         super(Attention, self).__init__()

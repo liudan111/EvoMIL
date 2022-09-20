@@ -60,7 +60,8 @@ if args.cuda:
 optimizer = optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999), weight_decay=args.reg)
 criterion = torch.nn.CrossEntropyLoss(reduction="mean")
 
-''
+""" metrics: topks_correct and topk_accuracies. Copyright ©  Facebook.
+"""
 def topks_correct(preds, labels, ks):
     """
     Given the predictions, labels, and a list of top-k values, compute the
@@ -106,9 +107,8 @@ def topk_accuracies(preds, labels, ks):
     """
     num_topks_correct = topks_correct(preds, labels, ks)
     return [(x / preds.size(0)) * 100.0 for x in num_topks_correct]
-''
 
-        
+     
 def results2CSV(results,csvfile):
 
     if os.path.isfile(csvfile):
@@ -155,9 +155,8 @@ def get_confusion(pred, target):
 if __name__ == "__main__":
     # Eukaryota/Prokaryote
         input='/home1/2656169l/data/Prokaryote/new1/'
-        output='/home1/2656169l/data/Prokaryote/new1/5fold_model_mc/new/'
-        output_path="esm1b_outputs/Prokaryote/new1/5fold_cv_mc/new/"
-        # virus_pos_neg_path= input+'virus_' 
+        output='/home1/2656169l/data/Prokaryote/new1/5fold_model_mc/'
+        output_path="esm1b_outputs/Prokaryote/new1/5fold_cv_mc/"
       
         test_loader=torch.load(output_path+'test_loader')
         for j in range(5):
@@ -208,12 +207,11 @@ if __name__ == "__main__":
                 
                 test_loss=test_loss.cpu().numpy()
                 test_acc=test_acc.cpu().numpy()
-                print(test_loss)
-    
+                # print(test_loss)
                 gts, y_hat, probs = np.asarray(gts), np.asarray(y_hat), np.asarray(probs)
-                print(gts)
-                print(y_hat)
-                print(probs)
+                # print(gts)
+                # print(y_hat)
+                # print(probs)
                 # kappa_score = cohen_kappa_score(gts, y_hat)
                 # cm = confusion_matrix(gts, y_hat)
                 spec,sens = get_confusion(y_hat, gts)

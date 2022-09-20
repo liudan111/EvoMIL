@@ -5,14 +5,11 @@ import torch
 import torch.utils.data as data_utils
 import torch.optim as optim
 from torch.autograd import Variable
-from model_esm1b import Attention, GatedAttention
-from sklearn.metrics import roc_curve, auc
-from sklearn import metrics
+from model_esm1b import Attention
 import pandas as pd
 import os
 import csv
-from sklearn.metrics import f1_score
-# Training settings
+# Training settings,
 parser = argparse.ArgumentParser(description='PyTorch MNIST bags Example')
 parser.add_argument('--epochs', type=int, default=150, metavar='N',
                     help='number of epochs to train (default: 20)')

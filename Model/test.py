@@ -5,20 +5,15 @@ import torch
 import torch.utils.data as data_utils
 import torch.optim as optim
 from torch.autograd import Variable
-import matplotlib.pyplot as plt
-import seaborn as sns
-plt.switch_backend('agg')
-from model_esm1b import Attention, GatedAttention
-from sklearn.metrics import roc_curve, auc
+from model_esm1b import Attention
+from sklearn.metrics import auc
 from sklearn import metrics
 import pandas as pd
 import os
 import csv
-from sklearn.metrics import cohen_kappa_score, roc_auc_score, confusion_matrix, precision_score, recall_score, f1_score
-from sklearn.metrics import precision_recall_curve
-from sklearn.metrics import plot_precision_recall_curve
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
+# from sklearn.metrics import cohen_kappa_score, roc_auc_score, confusion_matrix, precision_score, recall_score, f1_score
+from sklearn.metrics import precision_score,recall_score,f1_score
+
 # Training settings
 parser = argparse.ArgumentParser(description='PyTorch MNIST bags Example')
 parser.add_argument('--epochs', type=int, default=150, metavar='N',

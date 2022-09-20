@@ -53,6 +53,8 @@ if args.cuda:
 optimizer = optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999), weight_decay=args.reg)
 criterion = torch.nn.CrossEntropyLoss(reduction="mean")
 
+""" metrics: topks_correct and topk_accuracies. Copyright ©  Facebook.
+"""
 def topks_correct(preds, labels, ks):
     """
     Given the predictions, labels, and a list of top-k values, compute the
