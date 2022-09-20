@@ -5,7 +5,7 @@ import torch
 import torch.utils.data as data_utils
 import torch.optim as optim
 from torch.autograd import Variable
-from model_esm1b import Attention
+from model_esm1b import Attention,GatedAttention
 import pandas as pd
 import os
 import csv

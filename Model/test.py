@@ -5,7 +5,7 @@ import torch
 import torch.utils.data as data_utils
 import torch.optim as optim
 from torch.autograd import Variable
-from model_esm1b import Attention
+from model_esm1b import Attention,GatedAttention
 from sklearn.metrics import auc
 from sklearn import metrics
 import pandas as pd
@@ -48,12 +48,6 @@ if args.cuda:
     model.cuda()
 
 optimizer = optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999), weight_decay=args.reg)
-
-def accuracy(pred, target, threshold = 0):
-    pred = pred.detach().numpy()
-    target = target.detach().numpy()
-    acc=np.sum(target == pred)/target.shape[0]
-    return acc
         
 def results2CSV(results,hostname,csvfile):
     results['Hostname']=hostname
