@@ -30,7 +30,7 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
 2. final_specise_sort_30_pro.csv 
 
-   It is the table 
+    It is the table 
 
 3. final_specise_sort_45_euk.csv
 
@@ -71,23 +71,28 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
 1. Trained model_pro/best_model_acc 
 
-    This folder includes trained models for 21 prokaryotic hosts
+    Based on 5-fold cross validation, we trained our model on 21 prokaryotic hosts separately, then test five models on test datasets to obtain a model with the best Accuracy for each prokaryotic host.
 
 2. Trained model_pro/best_model_auc 
 
 
+    Based on 5-fold cross validation, we trained our model on 21 prokaryotic hosts separately, then test five models on test datasets to obtain a model with the best AUC for each prokaryotic host.
+
+
 3. Trained model_pro/final_model
 
-### Trained models on eukaryotic hosts
+    Here are trained final models for each prokaryotic host, they are trained on all datasets we collect from VHDB.
+
+### Trained models on 12 eukaryotic hosts
 
 1. Trained model_euk/best_model_acc 
 
-    Here are trained models with the best Accuracy of 12 eukaryotic hosts.
+    Based on 5-fold cross validation, we trained our model on 12 eukaryotic hosts separately, then test five models on test datasets to obtain a model with the best Accuracy for each eukaryotic host.
 
 2. Trained model_euk/best_model_auc 
 
-    Here are trained models with the best AUC of 12 eukaryotic hosts, which 
+    Based on 5-fold cross validation, we trained our model on 12 eukaryotic hosts separately, then test five models on test datasets to obtain a model with the best AUC for each eukaryotic host.
 
 3. Trained model_euk/final_model
 
-    Here are trained final model of 12 eukaryotic hosts, which are trained on all datasets we collect.
+    Here are trained final models for each eukaryotic host, they are trained on all datasets we collect from VHDB.
