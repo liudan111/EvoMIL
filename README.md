@@ -11,11 +11,11 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
 
 ### Requirements:
-Python3
-PyTorch ==1.7.1 (with CUDA)
-torchvision == 0.8.2
-sklearn==0.23.2
-numpy==1.21.5
+    Python3
+    PyTorch ==1.7.1 (with CUDA)
+    torchvision == 0.8.2
+    sklearn==0.23.2
+    numpy==1.21.5
 
 ### Data
 1. example/5fold_cv <br />
