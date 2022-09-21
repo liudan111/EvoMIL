@@ -35,7 +35,6 @@ def get_confusion(pred, target):
     # print(f1_val)
     return spec,sens
 
-
 """ metrics: topks_correct and topk_accuracies. Copyright ©  Facebook.
 """
 def topks_correct(preds, labels, ks):
@@ -85,7 +84,7 @@ def topk_accuracies(preds, labels, ks):
     return [(x / preds.size(0)) * 100.0 for x in num_topks_correct]
 
 # test_mc
-def results2CSV(results,csvfile):
+def results2CSV_test(results,csvfile):
     if os.path.isfile(csvfile):
         with open(csvfile, 'a') as csvfile:
             fieldnames = ['AUC','Loss','Accuracy','f1','spec','sens','prec']
@@ -100,7 +99,7 @@ def results2CSV(results,csvfile):
             writer.writerow(results) 
 
 # train_mc
-def results2CSV(results,csvfile):
+def results2CSV_train(results,csvfile):
     if os.path.isfile(csvfile):
         with open(csvfile, 'a') as csvfile:
             fieldnames = ['train_Loss','train_acc','Val_Loss','Val_Accuracy']

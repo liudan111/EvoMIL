@@ -9,8 +9,9 @@ from model_esm1b import Attention,GatedAttention
 import pandas as pd
 import os
 import csv
+from evaluation import aucscore,get_confusion,accuracy,results2CSV_train
 # Training settings,
-parser = argparse.ArgumentParser(description='PyTorch MNIST bags Example')
+parser = argparse.ArgumentParser(description='PyTorch PreTLM-MIL')
 parser.add_argument('--epochs', type=int, default=150, metavar='N',
                     help='number of epochs to train (default: 20)')
 parser.add_argument('--lr', type=float, default=0.0005, metavar='LR',
@@ -43,45 +44,22 @@ if args.cuda:
     model.cuda()
 
 optimizer = optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999), weight_decay=args.reg)
-
-def accuracy(pred, target, threshold = 0):
-    pred = pred.detach().numpy()
-    target = target.detach().numpy()
-    acc=np.sum(target == pred)/target.shape[0]
-    return acc
-        
-def results2CSV(results,hostname,csvfile):
-    results['Hostname']=hostname
-    if os.path.isfile(csvfile):
-        with open(csvfile, 'a') as csvfile:
-            fieldnames = ['Hostname','train_Loss','train_error','train_acc','Val_Loss','Val_error','Val_Accuracy']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writerow(results) 
-    else:
-        with open(csvfile, 'a') as csvfile:
-            print ( 'new file',csvfile)
-            fieldnames = ['Hostname','train_Loss','train_error','train_acc','Val_Loss','Val_error','Val_Accuracy']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerow(results)
              
 if __name__ == "__main__":
     # Eukaryota/Prokaryote
-    input='/home1/2656169l/data/Prokaryote/new1/'
-    output='/home1/2656169l/data/Prokaryote/new1/5fold_model/'
-    # virus_pos_neg_path= input+'virus_' 
-    virus_host_30 = pd.read_csv(input+'final_specise_sort_30.csv') #Eukaryota_final_specise_sort_30
+    input='./Data/'
+    output='./Results/'
+    input_data_path="./Data/example/5fold_cv/"
+    virus_host_30 = pd.read_csv(input+'final_specise_sort_30_pro.csv') 
     length=virus_host_30.shape[0]
-    output_path="esm1b_outputs/Prokaryote/new1/5fold_cv/"
     snapStep=10 #every 10 epochs we will validate our validation set once
- 
     for i in range(length):
         hostname=virus_host_30.iloc[i,0]
         for j in range(5):
             print('Start Training')
             max_acc = 0                
-            train_loader=torch.load(output_path+'train_dl_'+str(i+1)+'_'+str(j))
-            val_loader=torch.load(output_path+'val_dl_'+str(i+1)+'_'+str(j))
+            train_loader=torch.load(input_data_path+'train_dl_'+str(i+1)+'_'+str(j))
+            val_loader=torch.load(input_data_path+'val_dl_'+str(i+1)+'_'+str(j))
             for epoch in range(1, args.epochs + 1):
                 model.train()
                 train_loss = 0.
@@ -145,9 +123,9 @@ if __name__ == "__main__":
                         torch.save(model.state_dict(), model_save_path)
                     model.train()
                     
-                    csvfile=output+'virus_model_CV_5fold_new.csv'
+                    csvfile=output+'virus_model_CV_5fold.csv'
                     results= {'Hostname': hostname,'train_Loss':train_loss,
                             'train_error':train_error,'train_acc':train_acc,'Val_Loss':val_loss,'Val_error':val_error,
                             'Val_Accuracy':val_acc} 
-                    results2CSV(results, hostname,csvfile)
+                    results2CSV_train(results, hostname,csvfile)
         

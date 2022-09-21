@@ -1,17 +1,10 @@
 from __future__ import print_function
 import numpy as np
-import argparse
-import torch
-import torch.utils.data as data_utils
-import torch.optim as optim
-from torch.autograd import Variable
-from model_esm1b import Attention
 from sklearn.metrics import auc
 from sklearn import metrics
-import pandas as pd
-import os
 import csv
-from sklearn.metrics import precision_score,recall_score,f1_score
+from sklearn.metrics import f1_score
+import os
 
 def aucscore(pred, labels):
     fpr, tpr, threshold = metrics.roc_curve(labels, pred, pos_label=1)
@@ -48,7 +41,7 @@ def accuracy(pred, target, threshold = 0):
     return acc
 
 #   test  
-def results2CSV(results,hostname,csvfile):
+def results2CSV_test(results,hostname,csvfile):
     results['Hostname']=hostname
     if os.path.isfile(csvfile):
         with open(csvfile, 'a') as csvfile:
@@ -64,7 +57,7 @@ def results2CSV(results,hostname,csvfile):
             writer.writerow(results) 
             
 # train     
-def results2CSV(results,hostname,csvfile):
+def results2CSV_train(results,hostname,csvfile):
     results['Hostname']=hostname
     if os.path.isfile(csvfile):
         with open(csvfile, 'a') as csvfile:

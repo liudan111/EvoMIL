@@ -5,10 +5,6 @@ import torch
 import torch.utils.data as data_utils
 import torch.optim as optim
 from torch.autograd import Variable
-
-from dataloader import MnistBags
-# from dataload2 import Dataload
-from cv import Dataload
 from attention_mc import Attention
 from sklearn.metrics import roc_curve, auc
 from sklearn import metrics
@@ -16,9 +12,11 @@ import pandas as pd
 import os
 import csv
 from sklearn.metrics import f1_score
+from evaluation_mc import get_confusion, topks_correct,topk_accuracies,results2CSV_train
+
 # Training settings
-parser = argparse.ArgumentParser(description='PyTorch MNIST bags Example')
-parser.add_argument('--epochs', type=int, default=50, metavar='N',
+parser = argparse.ArgumentParser(description='PyTorch PreTLM-MIL')
+parser.add_argument('--epochs', type=int, default=20, metavar='N',
                     help='number of epochs to train (default: 20)')
 parser.add_argument('--lr', type=float, default=0.0005, metavar='LR',
                     help='learning rate (default: 0.0005)')
@@ -52,87 +50,18 @@ if args.cuda:
 
 optimizer = optim.Adam(model.parameters(), lr=args.lr, betas=(0.9, 0.999), weight_decay=args.reg)
 criterion = torch.nn.CrossEntropyLoss(reduction="mean")
-
-""" metrics: topks_correct and topk_accuracies. Copyright ©  Facebook.
-"""
-def topks_correct(preds, labels, ks):
-    """
-    Given the predictions, labels, and a list of top-k values, compute the
-    number of correct predictions for each top-k value.
-
-    Args:
-        preds (array): array of predictions. Dimension is batchsize
-            N x ClassNum.
-        labels (array): array of labels. Dimension is batchsize N.
-        ks (list): list of top-k values. For example, ks = [1, 5] correspods
-            to top-1 and top-5.
-
-    Returns:
-        topks_correct (list): list of numbers, where the `i`-th entry
-            corresponds to the number of top-`ks[i]` correct predictions.
-    """
-    assert preds.size(0) == labels.size(
-        0
-    ), "Batch dim of predictions and labels must match"
-    # Find the top max_k predictions for each sample
-    _top_max_k_vals, top_max_k_inds = torch.topk(
-        preds, max(ks), dim=1, largest=True, sorted=True
-    )
-    # (batch_size, max_k) -> (max_k, batch_size).
-    top_max_k_inds = top_max_k_inds.t()
-    # (batch_size, ) -> (max_k, batch_size).
-    rep_max_k_labels = labels.view(1, -1).expand_as(top_max_k_inds)
-    # (i, j) = 1 if top i-th prediction for the j-th sample is correct.
-    top_max_k_correct = top_max_k_inds.eq(rep_max_k_labels)
-    # Compute the number of topk correct predictions for each k.
-    topks_correct = [
-        top_max_k_correct[:k, :].view(-1).float().sum() for k in ks
-    ]
-    return topks_correct
-
-def topk_accuracies(preds, labels, ks):
-    """
-    Computes the top-k accuracy for each k.
-    Args:
-        preds (array): array of predictions. Dimension is N.
-        labels (array): array of labels. Dimension is N.
-        ks (list): list of ks to calculate the top accuracies.
-    """
-    num_topks_correct = topks_correct(preds, labels, ks)
-    return [(x / preds.size(0)) * 100.0 for x in num_topks_correct]
-
-# def accuracy(pred, target, threshold = 0):
-#     pred = pred.detach().numpy()
-#     target = target.detach().numpy()
-#     acc=np.sum(target == pred)/target.shape[0]
-#     return acc
-        
-def results2CSV(results,csvfile):
-    if os.path.isfile(csvfile):
-        with open(csvfile, 'a') as csvfile:
-            fieldnames = ['train_Loss','train_acc','Val_Loss','Val_Accuracy']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writerow(results) 
-    else:
-        with open(csvfile, 'a') as csvfile:
-            print ( 'new file',csvfile)
-            fieldnames = ['train_Loss','train_acc','Val_Loss','Val_Accuracy']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerow(results)
-             
+   
 if __name__ == "__main__":
         # Eukaryota/Prokaryote
-        input='/home1/2656169l/data/Prokaryote/new1/'
-        output='/home1/2656169l/data/Prokaryote/new1/5fold_model_mc/new/'
-        output_path="esm1b_outputs/Prokaryote/new1/5fold_cv_mc/new/"
+        input='./Data/'
+        output='./Results/'
+        input_data_path="./Data/example/5fold_cv_mc/"
         snapStep=5 #every 5 epochs we will validate our validation set once
-
         for j in range(5):
             print('Start Training')
             max_acc = 0                
-            train_loader=torch.load(output_path+'train_dl_'+str(j))
-            val_loader=torch.load(output_path+'val_dl_'+str(j))
+            train_loader=torch.load(input_data_path+'train_dl_'+str(j))
+            val_loader=torch.load(input_data_path+'val_dl_'+str(j))
             # train_loader=train_loader_list[j]
             # val_loader=val_loader_list[j]
             for epoch in range(1, args.epochs + 1):
@@ -151,7 +80,6 @@ if __name__ == "__main__":
                     if args.cuda:
                         data, bag_label = data.cuda(), bag_label.cuda()
                     data, bag_label = Variable(data), Variable(bag_label)
-                   
 
                     # reset gradients
                     optimizer.zero_grad()
@@ -216,5 +144,5 @@ if __name__ == "__main__":
                     results= {'train_Loss':train_loss,
                             'train_acc':train_acc,'Val_Loss':val_loss,
                             'Val_Accuracy':val_acc} 
-                    results2CSV(results,csvfile)
+                    results2CSV_train(results,csvfile)
         
