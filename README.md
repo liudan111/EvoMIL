@@ -7,8 +7,7 @@ Detecting virus-host interactions is essential for us to understand interaction 
 ###  The flowchart of PreTLM-MIL
 First, protein sequences of viruses and virus-host interactions can be collected from the VHDB (https://www.genome.jp/virushostdb/). For each host, we get the same number of positive viruses and negative viruses, and then representative vectors of viral protein sequences are obtained by the pre-trained transformer model ESM-1b https://github.com/facebookresearch/esm. There is a host label for a set of protein sequences of each virus, attention-based MIL is applied to predict the host label for each virus, and calculate instance weights for each protein of viruses. Finally, probability between the virus and the given host is obtained to check if a virus is associated with the host.
 
-![flowchart](https://user-images.githubusercontent.com/6703505/191104200-99f5d421-4a96-4201-ae68-2bee49b060d2.png)
-
+![flowchart](https://github.com/liudan111/EvoMIL/blob/260741ea0d981e060b945be0e6a542515e2bd588/Figures/flowchart.pdf)
 
 ### Requirements:
     Python3
@@ -22,7 +21,7 @@ First, protein sequences of viruses and virus-host interactions can be collected
 
 2.  Pre-trained transformer model ESM-1b (https://github.com/facebookresearch/esm) to calculate embeddings of each protein of viruses.
 
-3.  Train binary and multi-class classification models by attention-based MIL 
+3.  Train binary and multi-class classification models by attention-based MIL.
 
 
 ### Data
