@@ -39,7 +39,7 @@ python extract.py esm1b_t33_650M_UR50S protein.fasta esm1b/ --repr_layers 33 --i
 4.  hostname_count.csv from Data/examples/pro_5fold_mc and Data/examples/euk_5fold_mc
     Tables respectively represented 22 Prokaryotic and 36 Eukaryotic hosts on multi-class classfication task.
      
-### Codes for training and testing on dataset (Binary classification).
+### Codes for training and testing on  Binary classification dataset.
 1. Models/model_esm1b.py
    Attention-based MIL model for binary classification.
 
@@ -51,7 +51,7 @@ python extract.py esm1b_t33_650M_UR50S protein.fasta esm1b/ --repr_layers 33 --i
     
 4. mil_pytorch are mil package from https://github.com/jakubmonhart/mil_pytorch.git
 
-### Codes for training and testing on dataset (Multi-class classification).
+### Codes for training and testing on Multi-class classification dataset.
 1. Models/attention_mc.py. Attention-based MIL model for multi-class classification.
 
 2. Models/train_mc.py. Train the model by 5-fold cross validation.
