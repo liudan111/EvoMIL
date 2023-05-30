@@ -16,7 +16,7 @@ First, protein sequences of viruses and virus-host interactions can be collected
     sklearn==0.23.2
     numpy==1.21.5
 
-### Processing steps of PreTLM-MIL
+### Processing steps of EvoMIL
 1.  Collect viruses which are linked with hosts from VHDB https://www.genome.jp/virushostdb/, and construct the balance datasets for each host.
 
 2.  Pre-trained transformer model ESM-1b (https://github.com/facebookresearch/esm) to calculate embeddings of each protein of viruses.
