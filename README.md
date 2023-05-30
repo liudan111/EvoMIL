@@ -75,4 +75,5 @@ python extract.py esm1b_t33_650M_UR50S protein.fasta esm1b/ --repr_layers 33 --i
     
 ## Reference
 [1] Rives A, Meier J, Sercu T, Goyal S, Lin Z, Liu J, et al. Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences. Proc Natl Acad Sci U S A. 2021;118(15)
+
 [2] Ilse M, Tomczak J, Welling M. Attention-based deep multiple instance learning. In: International conference on machine learning. PMLR; 2018. p. 2127–2136.
