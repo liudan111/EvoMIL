@@ -1,0 +1,16 @@
+Hostname,AUC,Accuracy,f1,spec,sens,prec,model_CV
+Mycolicibacterium smegmatis,0.9999,0.994,0.994,1.0,0.9884,0.9939,1
+Escherichia coli,0.9653,0.9211,0.9209,0.9231,0.9192,0.9208,1
+Salmonella enterica,0.9809,0.9032,0.9016,0.96,0.8372,0.91,3
+Lactococcus lactis,1.0,1.0,1.0,1.0,1.0,1.0,2
+Pseudomonas aeruginosa,0.9827,0.9452,0.9452,0.9722,0.9189,0.9462,1
+Gordonia terrae,0.9992,0.9718,0.9718,0.9429,1.0,0.9737,5
+Staphylococcus aureus,0.9786,0.9508,0.95,0.9615,0.9429,0.9483,3
+Klebsiella pneumoniae,1.0,1.0,1.0,1.0,1.0,1.0,1
+Cutibacterium acnes,1.0,1.0,1.0,1.0,1.0,1.0,3
+Enterococcus faecalis,1.0,0.9375,0.9273,1.0,0.913,0.9091,3
+Bacillus thuringiensis,1.0,0.92,0.9188,1.0,0.8667,0.9167,2
+Acinetobacter baumannii,1.0,0.9583,0.9564,1.0,0.9,0.9667,1
+Vibrio cholerae,1.0,0.9583,0.9577,1.0,0.9091,0.9643,4
+Arthrobacter sp. ATCC 21022,0.9752,0.8636,0.8634,0.8182,0.9091,0.8667,3
+Bacillus cereus,1.0,0.8636,0.8611,1.0,0.7273,0.8929,2
