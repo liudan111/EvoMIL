@@ -7,7 +7,7 @@ Predicting virus-host associations is essential to determine the specific host s
 ###  A diagrammatic representation of the EvoMIL method.
 First, protein sequences of viruses and virus-host interactions can be collected from the VHDB (https://www.genome.jp/virushostdb/). For each host, we get the same number of positive viruses and negative viruses, and then representative vectors of viral protein sequences are obtained by the pre-trained transformer model ESM-1b https://github.com/facebookresearch/esm. There is a host label for a set of protein sequences of each virus, attention-based MIL is applied to predict the host label for each virus, and calculate instance weights for each protein of viruses. Finally, probability between the virus and the given host is obtained to check if a virus is associated with the host.
 
-![flowchart](https://github.com/liudan111/EvoMIL/blob/f647d322891c6bbccfca6daafb98cba0981d3e26/Figures/flowchart.pdf)
+![flowchart](https://github.com/liudan111/EvoMIL/blob/main/Figures/flowchart.pdf)
 
 ### Requirements:
     Python3
