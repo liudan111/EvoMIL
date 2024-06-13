@@ -10,7 +10,7 @@ First, protein sequences of viruses and virus-host interactions can be collected
 ![flowchart](https://github.com/liudan111/EvoMIL/blob/main/Figures/flowchart.pdf)
 
 ### Requirements:
-    Python3
+    Python 3.7.7
     PyTorch ==1.7.1 (with CUDA)
     torchvision == 0.8.2
     sklearn==0.23.2
